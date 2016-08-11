@@ -36,34 +36,10 @@ public abstract class Factory {
     private static Factory instance=null;
     
     public static Factory getInstance(){
-        if (instance==null){
-            Properties prop = new Properties();
-            InputStream input = null;
-            
-            try {
-               
-                input = ClassLoader.getSystemResourceAsStream("factory.properties");
-                prop.load(input);
-                
-                if (prop.getProperty("variety").equals("X")){
-                    instance=new VarietyXFactory();
-                }
-                else if (prop.getProperty("variety").equals("Y")){
-                    instance=new VarietyYFactory();
-                }
-                else{
-                    throw new RuntimeException("Invalid factory configuration.");
-                }
-                
-                
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(Factory.class.getName()).log(Level.SEVERE, null, ex);
-                throw new RuntimeException("Invalid factory configuration.",ex);
-            } catch (IOException ex) {
-                Logger.getLogger(Factory.class.getName()).log(Level.SEVERE, null, ex);
-                throw new RuntimeException("Invalid factory configuration.",ex);
-            }
-        }
+        //In this point is defined which factory will be used.
+        //this could also be defined at runtime by using a 
+        //configuration file
+        instance=new VarietyXFactory();
         
         return instance;
        
